@@ -1,5 +1,7 @@
+import Intro from "./components/Intro";
+
 function App() {
-  return <></>;
+  return <Intro />;
 }
 
 export default App;
