@@ -1,7 +1,7 @@
-import Intro from "./components/Intro";
+import IntroPage from "./views/IntroPage";
 
 function App() {
-  return <Intro />;
+  return <IntroPage />;
 }
 
 export default App;

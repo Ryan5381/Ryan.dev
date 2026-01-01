@@ -98,12 +98,13 @@ const Intro = () => {
       {auroraBands.map((band) => (
         <motion.div
           key={band.id}
-          className={`absolute blur-[120px] mix-blend-screen pointer-events-none rounded-[100%] ${band.color} ${band.size}`}
+          className={`absolute blur-[80px] mix-blend-screen pointer-events-none rounded-[100%] ${band.color} ${band.size}`}
           style={{
             top: band.top,
             left: band.left,
             right: band.right,
             bottom: band.bottom,
+            willChange: "transform, opacity",
           }}
           animate={{
             ...band.animate,
@@ -125,6 +126,7 @@ const Intro = () => {
           y: smoothY,
           left: "calc(50% - 100px)",
           top: "calc(50% - 100px)",
+          willChange: "transform",
         }}
       />
 
