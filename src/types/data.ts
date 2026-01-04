@@ -4,5 +4,5 @@ export interface Milestone {
   title: string;
   role: string;
   description: string;
-  points: string[];
+  point: string;
 }

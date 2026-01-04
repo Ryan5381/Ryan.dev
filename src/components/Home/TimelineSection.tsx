@@ -1,45 +1,27 @@
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
-import type { Milestone } from "../../types/data";
-
-const milestones: Milestone[] = [
-  {
-    year: "2015",
-    month: "09",
-    title: "大千醫院",
-    role: "護理師",
-    description: "培養臨床經驗，溝通與應變能力",
-    points: ["臨床照護", "急診"],
-  },
-  {
-    year: "2017",
-    month: "09",
-    title: "長安醫院",
-    role: "護理師",
-    description: "提供病房照護、術後監護及病歷記錄，協助臨床治療及檢查。",
-    points: ["危機處理", "術後監護"],
-  },
-  {
-    year: "2022",
-    month: "03",
-    title: "清泉醫院",
-    role: "護理師",
-    description:
-      "負責病患日常照護、健康監測，提供專業護理服務，並協助病患家屬了解病情與照護。",
-    points: ["溝通協調", "專業照護"],
-  },
-  {
-    year: "2025",
-    month: "05",
-    title: "橙的電子",
-    role: "前端工程師",
-    description:
-      "負責公司內部系統的前端開發工作，包含日常的維護與功能優化，確保系統在使用上的穩定性與流暢度，同時參與新項目的開發並進行相關技術實作。",
-    points: ["React", "TypeScript", "UI/UX"],
-  },
-];
+import { useExperiences } from "../../hooks/useExperiences";
 
 const TimelineSection = () => {
+  const { data: milestones = [], isLoading, error } = useExperiences();
+  console.log("milestones", milestones);
+
+  if (isLoading) {
+    return (
+      <Box sx={{ py: 10, display: "flex", justifyContent: "center" }}>
+        <CircularProgress sx={{ color: "#D4B483" }} />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ py: 10, textAlign: "center", color: "#ff4d4d" }}>
+        <Typography>加載經歷時出錯: {(error as Error).message}</Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ py: 10, color: "#fff", background: "transparent" }}>
       <Container maxWidth="lg">
@@ -117,23 +99,26 @@ const TimelineSection = () => {
                 </Typography>
                 {/* Point Tags */}
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.8 }}>
-                  {item.points.map((point, idx) => (
-                    <Box
-                      key={idx}
-                      sx={{
-                        px: 1,
-                        py: 0.2,
-                        fontSize: "0.7rem",
-                        borderRadius: "4px",
-                        border: "1px solid rgba(212, 180, 131, 0.4)",
-                        background: "rgba(212, 180, 131, 0.1)",
-                        color: "#D4B483",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {point}
-                    </Box>
-                  ))}
+                  {item.point?.split(",").map(
+                    (poi, idx) =>
+                      poi.trim() && (
+                        <Box
+                          key={idx}
+                          sx={{
+                            px: 1,
+                            py: 0.2,
+                            fontSize: "0.7rem",
+                            borderRadius: "4px",
+                            border: "1px solid rgba(212, 180, 131, 0.4)",
+                            background: "rgba(212, 180, 131, 0.1)",
+                            color: "#D4B483",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {poi.trim()}
+                        </Box>
+                      )
+                  )}
                 </Box>
               </Box>
 
