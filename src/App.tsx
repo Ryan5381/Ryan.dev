@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 
 const IntroPage = lazy(() => import("./views/IntroPage"));
 const Homepage = lazy(() => import("./views/Homepage"));
+const AboutPage = lazy(() => import("./views/AboutPage"));
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<IntroPage />} />
           <Route path="/homepage" element={<Homepage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </Suspense>
     </HashRouter>

@@ -7,6 +7,7 @@ import {
   Box,
 } from "@mui/material";
 import { BsCodeSlash } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -45,33 +46,35 @@ const Navbar = () => {
 
           <Box className="flex items-center gap-3">
             {[
-              { label: "關於我", id: "about" },
-              { label: "作品集", id: "projects" },
-              { label: "聯絡我", id: "contact" },
-              { label: "後臺管理", id: "admin" },
+              { label: "關於我", id: "about", path: "/about" },
+              { label: "作品集", id: "projects", path: "/projects" },
+              { label: "聯絡我", id: "contact", path: "/contact" },
+              { label: "後臺管理", id: "admin", path: "/admin" },
             ].map((item) => (
-              <Button
-                key={item.id}
-                sx={{
-                  backgroundColor: "#fdfcfb",
-                  color: "#55534a",
-                  borderRadius: "8px",
-                  px: 2.5,
-                  py: 0.8,
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  transition: "all 0.2s ease",
-                  boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
-                  "&:hover": {
-                    backgroundColor: "#fff",
-                    transform: "translateY(-1px)",
+              <Link to={item.path}>
+                <Button
+                  key={item.id}
+                  sx={{
+                    backgroundColor: "#fdfcfb",
+                    color: "#55534a",
+                    borderRadius: "8px",
+                    px: 2.5,
+                    py: 0.8,
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    transition: "all 0.2s ease",
                     boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
-                    color: "#333",
-                  },
-                }}
-              >
-                {item.label}
-              </Button>
+                    "&:hover": {
+                      backgroundColor: "#fff",
+                      transform: "translateY(-1px)",
+                      boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
+                      color: "#333",
+                    },
+                  }}
+                >
+                  {item.label}
+                </Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>
