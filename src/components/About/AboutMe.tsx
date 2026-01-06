@@ -1,6 +1,17 @@
 import { Box } from "@mui/material";
+import { useProfiles } from "../../hooks/useProfiles";
 
 const AboutMe = () => {
+  const { data: profiles = [], isLoading } = useProfiles();
+
+  if (isLoading) return <Box>Loading...</Box>;
+
+  // 安全檢查：確保有資料才讀取
+  const profile = profiles[0];
+  if (!profile) return <Box>尚未設定個人檔案資料</Box>;
+
+  console.log("profile", profile.full_name);
+
   return (
     <Box>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quia
