@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { motion } from "framer-motion";
 import { useProfiles } from "../../hooks/useProfiles";
 
 const AboutMe = () => {
@@ -6,14 +7,18 @@ const AboutMe = () => {
 
   if (isLoading) return <Box>Loading...</Box>;
 
-  // 安全檢查：確保有資料才讀取
   const profile = profiles[0];
   if (!profile) return <Box>尚未設定個人檔案資料</Box>;
 
   console.log("profile", profile.full_name);
 
   return (
-    <Box>
+    <Box
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 1 }}
+    >
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quia
       consectetur laudantium quidem sed debitis doloribus. Quia quod pariatur
       temporibus ratione quis aliquid esse natus dolore id voluptas minima

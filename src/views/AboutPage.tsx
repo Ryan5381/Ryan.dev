@@ -1,4 +1,5 @@
 import { Box, Container, Divider, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import AboutMe from "../components/About/AboutMe";
 import Avatar from "../components/About/Avatar";
@@ -52,31 +53,54 @@ const AboutPage = () => {
               width: "100%",
             }}
           >
-            <Divider
-              sx={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#96a29f",
-                mb: "2rem",
-                border: "none",
-                borderRadius: "2px",
-                opacity: 0.5,
+            <Box
+              component={motion.div}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{
+                duration: 1,
+                ease: "easeInOut",
+                delay: 0.5,
               }}
-            />
+              style={{
+                originX: 0,
+                width: "100%",
+              }}
+            >
+              <Divider
+                sx={{
+                  width: "100%",
+                  height: "2px",
+                  backgroundColor: "#96a29f",
+                  mb: "2rem",
+                  border: "none",
+                  borderRadius: "2px",
+                  opacity: 0.5,
+                }}
+              />
+            </Box>
 
             <AboutMe />
 
-            <Divider
-              sx={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#96a29f",
-                mt: "2rem",
-                border: "none",
-                borderRadius: "2px",
-                opacity: 0.5,
-              }}
-            />
+            <Box
+              component={motion.div}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, ease: "easeInOut", delay: 1 }}
+              style={{ originX: 0, width: "100%" }}
+            >
+              <Divider
+                sx={{
+                  width: "100%",
+                  height: "2px",
+                  backgroundColor: "#96a29f",
+                  mt: "2rem",
+                  border: "none",
+                  borderRadius: "2px",
+                  opacity: 0.5,
+                }}
+              />
+            </Box>
           </Box>
         </Box>
       </Container>
