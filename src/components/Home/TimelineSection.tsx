@@ -1,6 +1,6 @@
 import { Box, Typography, Container, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
-import { useExperiences } from "../../hooks/useExperiences";
+import { useExperiences } from "@hooks/useExperiences";
 
 const TimelineSection = () => {
   const { data: milestones = [], isLoading, error } = useExperiences();

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import hero from "../../assets/www.jpg";
+import hero from "@assets/www.jpg";
 
 /**
  * 背景發光特效、具備玻璃擬態感的主圖容器。

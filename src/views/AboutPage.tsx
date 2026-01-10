@@ -1,8 +1,8 @@
 import { Box, Container, Divider, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
-import AboutMe from "../components/About/AboutMe";
-import Avatar from "../components/About/Avatar";
+import Navbar from "@components/Navbar";
+import AboutMe from "@components/About/AboutMe";
+import Avatar from "@components/About/Avatar";
 
 const AboutPage = () => {
   return (

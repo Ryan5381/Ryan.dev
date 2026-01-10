@@ -1,7 +1,7 @@
 import { Box, Container, Divider } from "@mui/material";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/Home/HeroSection";
-import TimelineSection from "../components/Home/TimelineSection";
+import Navbar from "@components/Navbar";
+import HeroSection from "@components/Home/HeroSection";
+import TimelineSection from "@components/Home/TimelineSection";
 
 const Homepage = () => {
   return (

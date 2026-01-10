@@ -9,8 +9,8 @@ import {
   Stack,
 } from "@mui/material";
 import { MdOpenInNew, MdSend } from "react-icons/md";
-import contactImg from "../../assets/contact.png";
-import { useProfiles } from "../../hooks/useProfiles";
+import contactImg from "@assets/contact.png";
+import { useProfiles } from "@hooks/useProfiles";
 
 const Contact = () => {
   const { data: profiles = [], isLoading } = useProfiles();

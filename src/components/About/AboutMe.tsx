@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfiles } from "@hooks/useProfiles";
 
 const AboutMe = () => {
   const { data: profiles = [], isLoading } = useProfiles();
