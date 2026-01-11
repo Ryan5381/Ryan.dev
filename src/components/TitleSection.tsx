@@ -22,7 +22,7 @@ const TitleSection = () => {
         />
 
         <h2 className="text-3xl md:text-5xl font-earthlight tracking-[0.5em] text-stone-300 mt-4 md:mt-0">
-          通網
+          F12
         </h2>
       </motion.div>
 
