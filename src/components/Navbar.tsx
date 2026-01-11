@@ -6,8 +6,9 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import { BsCodeSlash } from "react-icons/bs";
+// import { BsCodeSlash } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import LogoIcon from "@assets/logo.svg";
 
 const Navbar = () => {
   return (
@@ -26,23 +27,29 @@ const Navbar = () => {
           sx={{ justifyContent: "space-between", py: 0.5 }}
         >
           {/* 左側logo、標題 */}
-          <Box className="flex items-center gap-2 group cursor-pointer">
-            <BsCodeSlash className="text-[#3C474F] text-3xl transition-transform group-hover:rotate-12" />
-            <Typography
-              variant="h4"
-              component="div"
-              sx={{
-                fontWeight: 800,
-                fontFamily: "monospace",
-                color: "#3C474F",
-                letterSpacing: "-0.05em",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              Ryan<span className="text-amber-700">.</span>Dev
-            </Typography>
-          </Box>
+          <Link to="/">
+            <Box className="flex items-center gap-2 group cursor-pointer">
+              <img
+                src={LogoIcon}
+                alt="Logo"
+                className="w-10 h-10 text-[#3C474F] text-3xl transition-transform group-hover:rotate-18"
+              />
+              <Typography
+                variant="h4"
+                component="div"
+                sx={{
+                  fontWeight: 800,
+                  fontFamily: "monospace",
+                  color: "#3C474F",
+                  letterSpacing: "-0.05em",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                Ryan<span className="text-amber-700">.</span>Dev
+              </Typography>
+            </Box>
+          </Link>
 
           <Box className="flex items-center gap-3">
             {[
