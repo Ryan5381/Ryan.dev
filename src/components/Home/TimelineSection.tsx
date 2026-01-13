@@ -8,8 +8,22 @@ const TimelineSection = () => {
 
   if (isLoading) {
     return (
-      <Box sx={{ py: 10, display: "flex", justifyContent: "center" }}>
-        <CircularProgress sx={{ color: "#D4B483" }} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "40vh",
+        }}
+      >
+        <CircularProgress
+          sx={{
+            color: "#D4B483",
+            filter: "drop-shadow(0 0 8px rgba(212, 180, 131, 0.4))",
+          }}
+          size={50}
+          thickness={4}
+        />
       </Box>
     );
   }
