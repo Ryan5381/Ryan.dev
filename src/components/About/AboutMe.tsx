@@ -1,11 +1,31 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useProfiles } from "@hooks/useProfiles";
 
 const AboutMe = () => {
   const { data: profiles = [], isLoading } = useProfiles();
 
-  if (isLoading) return <Box>Loading...</Box>;
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "40vh",
+        }}
+      >
+        <CircularProgress
+          sx={{
+            color: "#D4B483",
+            filter: "drop-shadow(0 0 8px rgba(212, 180, 131, 0.4))", // 增加淡淡的金光
+          }}
+          size={50}
+          thickness={4}
+        />
+      </Box>
+    );
+  }
 
   const profile = profiles[0];
   if (!profile) return <Box>尚未設定個人檔案資料</Box>;
