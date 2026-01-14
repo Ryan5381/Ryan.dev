@@ -19,3 +19,12 @@ export interface Profile {
   location: string;
   updated_at: string;
 }
+
+export interface Project {
+  title: string;
+  description: string;
+  image_url: string;
+  tech_stack: string[];
+  github_url: string;
+  demo_url: string;
+}

@@ -31,7 +31,7 @@
       "@hooks/*": ["./hooks/*"],
       "@views/*": ["./views/*"],
       "@services/*": ["./services/*"],
-      "@types/*": ["./types/*"],
+      "@type/*": ["./types/*"],
       "@lib/*": ["./lib/*"]
     }
   },
