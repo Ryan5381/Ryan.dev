@@ -5,12 +5,83 @@ import {
   Button,
   Container,
   Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
-// import { BsCodeSlash } from "react-icons/bs";
+import { useState } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import LogoIcon from "@assets/logo.svg";
 
 const Navbar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // 導覽清單
+  const navItems = [
+    { label: "關於我", id: "about", path: "/about" },
+    { label: "作品集", id: "projects", path: "/projects" },
+    { label: "聯絡我", id: "contact", path: "/contact" },
+    { label: "後臺管理", id: "admin", path: "/admin" },
+  ];
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
+  // 手機版抽屜內容
+  const drawer = (
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{
+        textAlign: "center",
+        height: "100%",
+        bgcolor: "#666",
+        color: "#ececec",
+        pt: 4,
+      }}
+    >
+      <Box className="flex flex-col items-center gap-2 mb-6">
+        <img src={LogoIcon} alt="Logo" className="w-12 h-12" />
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: 800,
+            fontFamily: "monospace",
+            color: "#ececec",
+            letterSpacing: "-0.05em",
+          }}
+        >
+          Ryan<span className="text-amber-700">.</span>Dev
+        </Typography>
+      </Box>
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item.id} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={item.path}
+              sx={{ textAlign: "center", py: 2 }}
+            >
+              <ListItemText
+                primary={item.label}
+                slotProps={{
+                  primary: {
+                    fontWeight: 600,
+                    fontSize: "1.1rem",
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   return (
     <AppBar
       position="fixed"
@@ -44,6 +115,7 @@ const Navbar = () => {
                   letterSpacing: "-0.05em",
                   display: "flex",
                   alignItems: "center",
+                  fontSize: { xs: "1.5rem", md: "2.125rem" },
                 }}
               >
                 Ryan<span className="text-amber-700">.</span>Dev
@@ -51,16 +123,21 @@ const Navbar = () => {
             </Box>
           </Link>
 
-          <Box className="flex items-center gap-3">
-            {[
-              { label: "關於我", id: "about", path: "/about" },
-              { label: "作品集", id: "projects", path: "/projects" },
-              { label: "聯絡我", id: "contact", path: "/contact" },
-              { label: "後臺管理", id: "admin", path: "/admin" },
-            ].map((item) => (
-              <Link to={item.path}>
+          {/* 手機版漢堡按鈕 */}
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ display: { md: "none" }, color: "#3C474F" }}
+          >
+            <HiMenuAlt3 size={32} />
+          </IconButton>
+
+          {/* 電腦版選單 */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+            {navItems.map((item) => (
+              <Link key={item.id} to={item.path}>
                 <Button
-                  key={item.id}
                   sx={{
                     backgroundColor: "#fdfcfb",
                     color: "#55534a",
@@ -86,6 +163,25 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
+
+      {/* 手機版 Drawer */}
+      <Drawer
+        variant="temporary"
+        anchor="left"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: 280,
+            border: "none",
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
     </AppBar>
   );
 };
