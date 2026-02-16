@@ -14,11 +14,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // 新增 useLocation
 import LogoIcon from "@assets/logo.svg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation(); // 獲取當前路徑
 
   // 導覽清單
   const navItems = [
@@ -59,25 +60,39 @@ const Navbar = () => {
         </Typography>
       </Box>
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={item.path}
-              sx={{ textAlign: "center", py: 2 }}
-            >
-              <ListItemText
-                primary={item.label}
-                slotProps={{
-                  primary: {
-                    fontWeight: 600,
-                    fontSize: "1.1rem",
+        {navItems.map((item) => {
+          const active = location.pathname === item.path;
+          return (
+            <ListItem key={item.id} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                sx={{
+                  textAlign: "center",
+                  py: 2,
+                  bgcolor: active ? "rgba(255, 255, 255, 0.1)" : "transparent", // 啟用中背景
+                  borderLeft: active
+                    ? "4px solid #D4B483"
+                    : "4px solid transparent", // 左側導引條
+                  "&:hover": {
+                    bgcolor: "rgba(255, 255, 255, 0.05)",
                   },
                 }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+              >
+                <ListItemText
+                  primary={item.label}
+                  slotProps={{
+                    primary: {
+                      fontWeight: active ? 800 : 600, // 啟用中加粗
+                      fontSize: "1.1rem",
+                      color: active ? "#D4B483" : "inherit", // 啟用中顏色
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
     </Box>
   );
@@ -135,31 +150,37 @@ const Navbar = () => {
 
           {/* 電腦版選單 */}
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
-            {navItems.map((item) => (
-              <Link key={item.id} to={item.path}>
-                <Button
-                  sx={{
-                    backgroundColor: "#fdfcfb",
-                    color: "#55534a",
-                    borderRadius: "8px",
-                    px: 2.5,
-                    py: 0.8,
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    transition: "all 0.2s ease",
-                    boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
-                    "&:hover": {
-                      backgroundColor: "#fff",
-                      transform: "translateY(-1px)",
-                      boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
-                      color: "#333",
-                    },
-                  }}
-                >
-                  {item.label}
-                </Button>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = location.pathname === item.path;
+              return (
+                <Link key={item.id} to={item.path}>
+                  <Button
+                    sx={{
+                      backgroundColor: active ? "#55534a" : "#fdfcfb", // 啟用中深色背景
+                      color: active ? "#fff" : "#55534a", // 啟用中文字反白
+                      borderRadius: "8px",
+                      px: 2.5,
+                      py: 0.8,
+                      fontSize: "0.85rem",
+                      fontWeight: active ? 800 : 600,
+                      transition: "all 0.2s ease",
+                      boxShadow: active
+                        ? "inset 2px 2px 5px rgba(0,0,0,0.3)" // 啟用中內陰影
+                        : "3px 3px 4px rgba(0,0,0,0.6)",
+                      border: active ? "1px solid #D4B483" : "none", // 啟用中邊框
+                      "&:hover": {
+                        backgroundColor: active ? "#444" : "#fff",
+                        transform: "translateY(-1px)",
+                        boxShadow: "3px 3px 4px rgba(0,0,0,0.6)",
+                        color: active ? "#fff" : "#333",
+                      },
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                </Link>
+              );
+            })}
           </Box>
         </Toolbar>
       </Container>
