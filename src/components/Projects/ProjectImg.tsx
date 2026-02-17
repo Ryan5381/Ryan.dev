@@ -2,7 +2,12 @@ import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import placeholderImg from "@assets/placeholder.png";
 
-const ProjectImg = () => {
+interface ProjectImgProps {
+  src?: string | null;
+  alt?: string;
+}
+
+const ProjectImg = ({ src, alt = "Project Image" }: ProjectImgProps) => {
   return (
     <Box
       component={motion.div}
@@ -29,8 +34,8 @@ const ProjectImg = () => {
     >
       <Box
         component="img"
-        src={placeholderImg}
-        alt="Project Image"
+        src={src || placeholderImg}
+        alt={alt}
         sx={{
           width: "100%",
           height: "100%",

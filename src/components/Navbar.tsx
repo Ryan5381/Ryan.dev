@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom"; // 新增 useLocation
+import { Link, useLocation } from "react-router-dom";
 import LogoIcon from "@assets/logo.svg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation(); // 獲取當前路徑
+  const location = useLocation();
 
   // 導覽清單
   const navItems = [
