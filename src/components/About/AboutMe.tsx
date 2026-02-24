@@ -37,24 +37,15 @@ const AboutMe = () => {
       component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 1 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      sx={{
+        whiteSpace: "pre-line", // 顯示資料庫內的換行
+        lineHeight: 1.8,
+        color: "rgba(255, 255, 255, 0.8)",
+        fontSize: "1.05rem",
+      }}
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quia
-      consectetur laudantium quidem sed debitis doloribus. Quia quod pariatur
-      temporibus ratione quis aliquid esse natus dolore id voluptas minima
-      magnam cupiditate, voluptate veritatis optio quae sit animi ipsam ut nemo
-      architecto explicabo libero nobis? Incidunt voluptatibus quae totam,
-      provident qui quod illum aspernatur porro eum iure odio ab neque? Maxime
-      ea ad quo harum id facilis tempora asperiores ex? Voluptas explicabo at
-      unde cumque officiis velit corrupti et soluta reprehenderit aperiam modi
-      facilis, nulla possimus nostrum ducimus numquam voluptatem enim adipisci!
-      Dolore sequi omnis perspiciatis corrupti molestiae eos provident id error
-      labore esse ad minus quae, dolorum dolor cupiditate doloribus modi
-      excepturi illum quod placeat deserunt. Alias quibusdam ut nostrum
-      distinctio reprehenderit cupiditate tenetur corrupti possimus id? Autem
-      exercitationem nemo minima maiores corporis laborum aut officiis cum
-      laboriosam amet iure animi iste earum reprehenderit omnis, eligendi
-      suscipit. Quo, reprehenderit maiores.
+      {profile.bio || "尚未填寫自我介紹"}
     </Box>
   );
 };

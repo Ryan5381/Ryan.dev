@@ -1,6 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import { useProfiles } from "@hooks/useProfiles";
 
 const Avatar = () => {
+  const { data: profiles = [], isLoading } = useProfiles();
+  const profile = profiles[0];
+
   return (
     <Box
       sx={{
@@ -18,16 +22,31 @@ const Avatar = () => {
         position: "relative",
       }}
     >
-      <Box
-        sx={{
-          color: "rgba(255,255,255,0.2)",
-          fontSize: "0.9rem",
-          textAlign: "center",
-          p: 2,
-        }}
-      >
-        Avatar Image
-      </Box>
+      {isLoading ? (
+        <CircularProgress size={30} sx={{ color: "#D4B483" }} />
+      ) : profile?.avatar_url ? (
+        <Box
+          component="img"
+          src={profile.avatar_url}
+          alt={profile.full_name || "Avatar"}
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      ) : (
+        <Box
+          sx={{
+            color: "rgba(255,255,255,0.2)",
+            fontSize: "0.9rem",
+            textAlign: "center",
+            p: 2,
+          }}
+        >
+          尚未上傳頭像
+        </Box>
+      )}
     </Box>
   );
 };
