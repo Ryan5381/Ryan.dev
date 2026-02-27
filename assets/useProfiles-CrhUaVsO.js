@@ -1,0 +1,1 @@
+import{s as o,u as s}from"./supabase-b8SvdB8U.js";async function l(){console.log("fetching profiles from Supabase...");const{data:e,error:r}=await o.from("profiles").select("*");return r?(console.log("Supabase error fetching profile:",r),[]):(console.log("Successfully fetched profile:",e),e||[])}const t=()=>s({queryKey:["profiles"],queryFn:l,staleTime:1e3*60*60});export{t as u};
