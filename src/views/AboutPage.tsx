@@ -34,7 +34,7 @@ const AboutPage = () => {
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
             alignItems: { xs: "center", md: "flex-start" },
-            gap: { xs: 4, md: 8 },
+            gap: { xs: 5, md: 8 },
             mt: 4,
           }}
         >

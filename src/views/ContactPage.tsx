@@ -13,6 +13,7 @@ const ContactPage = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        overflowX: "hidden",
       }}
     >
       <Navbar />
