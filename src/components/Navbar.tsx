@@ -23,10 +23,10 @@ const Navbar = () => {
 
   // 導覽清單
   const navItems = [
+    { label: "首頁", id: "home", path: "/homepage" },
     { label: "關於我", id: "about", path: "/about" },
     { label: "作品集", id: "projects", path: "/projects" },
     { label: "聯絡我", id: "contact", path: "/contact" },
-    { label: "後臺管理", id: "admin", path: "/admin" },
   ];
 
   const handleDrawerToggle = () => {
