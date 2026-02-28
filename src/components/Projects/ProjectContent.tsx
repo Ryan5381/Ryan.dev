@@ -15,6 +15,20 @@ const ProjectContent = () => {
   console.log("projects", projects);
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box sx={{ mb: 6, textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontFamily: "'Playfair Display', serif",
+            color: "#D4B483",
+            fontWeight: 400,
+            fontSize: { xs: "2.5rem", md: "3.5rem" },
+            mb: 2,
+          }}
+        >
+          Project List
+        </Typography>
+      </Box>
       {projects?.map((project) => (
         <Box
           // key={project.id}

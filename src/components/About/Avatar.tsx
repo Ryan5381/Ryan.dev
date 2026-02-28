@@ -8,8 +8,8 @@ const Avatar = () => {
   return (
     <Box
       sx={{
-        width: { xs: "260px", md: "350px" },
-        height: { xs: "260px", md: "350px" },
+        width: "350px",
+        height: "350px",
         borderRadius: "20px",
         overflow: "hidden",
         border: "1px solid rgba(255, 255, 255, 0.2)",

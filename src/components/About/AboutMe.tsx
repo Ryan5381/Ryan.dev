@@ -39,6 +39,7 @@ const AboutMe = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 0.5 }}
       sx={{
+        padding: "1.5rem",
         whiteSpace: "pre-line", // 顯示資料庫內的換行
         lineHeight: 1.8,
         color: "rgba(255, 255, 255, 0.8)",

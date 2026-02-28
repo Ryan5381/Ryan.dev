@@ -80,14 +80,15 @@ const Contact = () => {
         <Typography
           variant="h4"
           sx={{
-            color: "#fff",
+            color: "#D4B483",
             fontWeight: 800,
             fontFamily: "'Playfair Display', serif",
+            paddingTop: "1.5rem",
           }}
         >
           Let's Connect
         </Typography>
-        <SiMinutemailer size={32} color="#D4B483" />
+        <SiMinutemailer size={32} color="#fff" />
       </Box>
 
       <Box
@@ -100,7 +101,13 @@ const Contact = () => {
         }}
       >
         {/* 左側資訊卡片區 */}
-        <Stack spacing={2} sx={{ width: { xs: "100%", md: "450px" } }}>
+        <Stack
+          spacing={2}
+          sx={{
+            width: { xs: "90%", sm: "85%", md: "450px" },
+            maxWidth: "450px",
+          }}
+        >
           {myInfo.map((item) => (
             <Card
               key={item.label}
@@ -122,6 +129,7 @@ const Contact = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   py: "20px !important",
+                  px: { xs: 2.5, sm: 3, md: 4 },
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5 }}>
