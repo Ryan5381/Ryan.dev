@@ -8,7 +8,7 @@ export async function getProjects(): Promise<Project[]> {
 
   if (error) {
     console.error("supabase error fetching projects:", error);
-    return [];
+    throw error;
   }
 
   console.log("successfully fetched projects:", data);

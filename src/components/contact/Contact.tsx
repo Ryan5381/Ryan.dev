@@ -1,3 +1,4 @@
+import QueryError from "@components/QueryError";
 import { SiMinutemailer } from "react-icons/si";
 import {
   Box,
@@ -14,7 +15,7 @@ import contactImg from "@assets/contact.png";
 import { useProfiles } from "@hooks/useProfiles";
 
 const Contact = () => {
-  const { data: profiles = [], isLoading } = useProfiles();
+  const { data: profiles = [], isLoading, isError, isFetching, refetch } = useProfiles();
   if (isLoading) {
     return (
       <Box
@@ -36,6 +37,10 @@ const Contact = () => {
       </Box>
     );
   }
+  if (isError) {
+    return <QueryError message="無法載入個人資訊，請稍後重試。" retrying={isFetching} onRetry={() => { void refetch(); }} />;
+  }
+
   const profile = profiles[0];
   if (!profile) return <Box sx={{ color: "#fff", p: 4 }}>尚未有聯繫資訊</Box>;
 

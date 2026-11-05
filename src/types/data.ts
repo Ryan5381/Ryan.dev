@@ -21,6 +21,7 @@ export interface Profile {
 }
 
 export interface Project {
+  id?: string | number;
   title: string;
   description: string;
   image_url: string;

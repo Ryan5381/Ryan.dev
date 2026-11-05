@@ -1,18 +1,30 @@
+import QueryError from "@components/QueryError";
 import {
   Box,
   Typography,
   Container,
   Divider,
   Button,
-  Link,
+  Chip,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useProjects } from "@hooks/useProjects";
 import ProjectImg from "./ProjectImg";
 
 const ProjectContent = () => {
-  const { data: projects } = useProjects();
-  console.log("projects", projects);
+  const { data: projects, isLoading, isError, isFetching, refetch } = useProjects();
+
+  if (isLoading) {
+    return <Container sx={{ py: 4, color: "#fff" }} role="status">作品載入中…</Container>;
+  }
+
+  if (isError) {
+    return (
+      <Container maxWidth="lg">
+        <QueryError message="無法載入作品，請稍後重試。" retrying={isFetching} onRetry={() => { void refetch(); }} />
+      </Container>
+    );
+  }
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ mb: 6, textAlign: "center" }}>
@@ -29,9 +41,12 @@ const ProjectContent = () => {
           Project List
         </Typography>
       </Box>
+      {projects?.length === 0 && (
+        <Typography sx={{ color: "#fff" }}>尚未有作品資料</Typography>
+      )}
       {projects?.map((project) => (
         <Box
-          // key={project.id}
+          key={project.id ?? `${project.github_url}|${project.demo_url}|${project.title}`}
           component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -139,18 +154,29 @@ const ProjectContent = () => {
                   {project.description}
                 </Typography>
 
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {[...new Set(project.tech_stack ?? [])].map((tech) => (
+                    <Chip key={tech} label={tech} size="small" sx={{ color: "#D4B483", bgcolor: "rgba(212,180,131,0.1)" }} />
+                  ))}
+                </Box>
+
                 <Box
                   component={motion.div}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  sx={{ alignSelf: "flex-end" }}
+                  sx={{ alignSelf: "flex-end", display: "flex", flexWrap: "wrap", gap: 1.5 }}
                 >
-                  <Link
-                    href={project.github_url}
-                    target="_blank"
-                    rel="noopener"
-                  >
+                  {[
+                    { label: "線上展示", url: project.demo_url },
+                    { label: "GitHub", url: project.github_url },
+                  ].filter(({ url }) => /^https?:\/\//i.test(url ?? "")).map(({ label, url }) => (
                     <Button
+                      key={label}
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${project.title}：${label}（另開分頁）`}
                       variant="contained"
                       sx={{
                         height: "32px",
@@ -167,9 +193,9 @@ const ProjectContent = () => {
                         },
                       }}
                     >
-                      查看更多...
+                      {label}
                     </Button>
-                  </Link>
+                  ))}
                 </Box>
               </Box>
             </Box>

@@ -1,16 +1,8 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import { Box } from "@mui/material";
-import LoadingGif from "@assets/loading.gif";
+import { Box, CircularProgress } from "@mui/material";
 
-// const IntroPage = lazy(() => import("@views/IntroPage"));
-const IntroPage = lazy(
-  () =>
-    new Promise((resolve) => {
-      // 強制延遲 3 秒才載入組件
-      setTimeout(() => resolve(import("@views/IntroPage") as any), 3000);
-    })
-);
+const IntroPage = lazy(() => import("@views/IntroPage"));
 const Homepage = lazy(() => import("@views/Homepage"));
 const AboutPage = lazy(() => import("@views/AboutPage"));
 const ContactPage = lazy(() => import("@views/ContactPage"));
@@ -30,11 +22,7 @@ function App() {
               bgcolor: "#5d584d",
             }}
           >
-            <img
-              src={LoadingGif}
-              alt="Loading"
-              style={{ width: "400px", height: "auto" }}
-            />
+            <CircularProgress aria-label="頁面載入中" sx={{ color: "#D4B483" }} />
           </Box>
         }
       >

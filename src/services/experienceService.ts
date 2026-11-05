@@ -12,7 +12,7 @@ export async function getExperiences(): Promise<Milestone[]> {
 
   if (error) {
     console.error("Supabase error fetching experiences:", error);
-    return [];
+    throw error;
   }
 
   console.log("Successfully fetched experiences:", data);

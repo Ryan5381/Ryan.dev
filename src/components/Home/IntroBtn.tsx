@@ -13,8 +13,9 @@ const IntroBtn = () => {
         ease: "easeOut",
       }}
     >
-      <Link to="/homepage">
         <Button
+          component={Link}
+          to="/homepage"
           variant="contained"
           sx={{
             color: "#67432e",
@@ -39,7 +40,6 @@ const IntroBtn = () => {
         >
           Into the Web
         </Button>
-      </Link>
     </motion.div>
   );
 };

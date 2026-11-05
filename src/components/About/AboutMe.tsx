@@ -1,9 +1,10 @@
+import QueryError from "@components/QueryError";
 import { Box, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useProfiles } from "@hooks/useProfiles";
 
 const AboutMe = () => {
-  const { data: profiles = [], isLoading } = useProfiles();
+  const { data: profiles = [], isLoading, isError, isFetching, refetch } = useProfiles();
 
   if (isLoading) {
     return (
@@ -25,6 +26,10 @@ const AboutMe = () => {
         />
       </Box>
     );
+  }
+
+  if (isError) {
+    return <QueryError message="無法載入個人資訊，請稍後重試。" retrying={isFetching} onRetry={() => { void refetch(); }} />;
   }
 
   const profile = profiles[0];
