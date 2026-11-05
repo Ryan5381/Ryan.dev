@@ -1,7 +1,12 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
 
 const Intro = () => {
+  const reducedMotion = useReducedMotion();
+  const compact = useMediaQuery("(max-width: 767px)");
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const followPointer = finePointer && !compact && !reducedMotion;
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -11,6 +16,7 @@ const Intro = () => {
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    if (!followPointer) return;
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX - window.innerWidth / 2);
       mouseY.set(e.clientY - window.innerHeight / 2);
@@ -19,7 +25,7 @@ const Intro = () => {
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, followPointer]);
 
   // 定義動畫顏色配置
   const auroraBands = [
@@ -93,9 +99,9 @@ const Intro = () => {
   ];
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#5d584d]">
+    <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden bg-[#5d584d]">
       {/* 背景動畫 */}
-      {auroraBands.map((band) => (
+      {(compact ? auroraBands.slice(0, 2) : auroraBands).map((band) => (
         <motion.div
           key={band.id}
           className={`absolute blur-[80px] mix-blend-screen pointer-events-none rounded-[100%] ${band.color} ${band.size}`}
@@ -104,9 +110,9 @@ const Intro = () => {
             left: band.left,
             right: band.right,
             bottom: band.bottom,
-            willChange: "transform, opacity",
+            willChange: reducedMotion ? "auto" : "transform, opacity",
           }}
-          animate={{
+          animate={reducedMotion ? { opacity: 0.5 } : {
             ...band.animate,
             opacity: band.animate?.opacity || [0.5, 0.9, 0.6, 0.5],
           }}
@@ -119,7 +125,7 @@ const Intro = () => {
       ))}
 
       {/* 滑鼠跟隨的光影效果 */}
-      <motion.div
+      {followPointer && <motion.div
         className="absolute w-[200px] h-[200px] rounded-full bg-white/10 blur-3xl mix-blend-overlay pointer-events-none"
         style={{
           x: smoothX,
@@ -128,7 +134,7 @@ const Intro = () => {
           top: "calc(50% - 100px)",
           willChange: "transform",
         }}
-      />
+      />}
 
       {/* 防止色彩斷層 */}
       <div className="absolute inset-0 opacity-[0.08] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />

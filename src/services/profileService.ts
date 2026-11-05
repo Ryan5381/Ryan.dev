@@ -8,7 +8,7 @@ export async function getProfile(): Promise<Profile[]> {
 
   if (error) {
     console.log("Supabase error fetching profile:", error);
-    return [];
+    throw error;
   }
 
   console.log("Successfully fetched profile:", data);

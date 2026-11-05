@@ -36,7 +36,9 @@ const Navbar = () => {
   // 手機版抽屜內容
   const drawer = (
     <Box
-      onClick={handleDrawerToggle}
+      id="mobile-navigation"
+      component="nav"
+      aria-label="手機導覽"
       sx={{
         textAlign: "center",
         height: "100%",
@@ -67,6 +69,8 @@ const Navbar = () => {
               <ListItemButton
                 component={Link}
                 to={item.path}
+                onClick={() => setMobileOpen(false)}
+                aria-current={active ? "page" : undefined}
                 sx={{
                   textAlign: "center",
                   py: 2,
@@ -140,6 +144,9 @@ const Navbar = () => {
 
           {/* 手機版漢堡按鈕 */}
           <IconButton
+            aria-label="開啟導覽選單"
+            aria-expanded={mobileOpen}
+            aria-controls={mobileOpen ? "mobile-navigation" : undefined}
             color="inherit"
             edge="start"
             onClick={handleDrawerToggle}
@@ -153,8 +160,11 @@ const Navbar = () => {
             {navItems.map((item) => {
               const active = location.pathname === item.path;
               return (
-                <Link key={item.id} to={item.path}>
                   <Button
+                    key={item.id}
+                    component={Link}
+                    to={item.path}
+                    aria-current={active ? "page" : undefined}
                     sx={{
                       backgroundColor: active ? "#55534a" : "#fdfcfb", // 啟用中深色背景
                       color: active ? "#fff" : "#55534a", // 啟用中文字反白
@@ -178,7 +188,6 @@ const Navbar = () => {
                   >
                     {item.label}
                   </Button>
-                </Link>
               );
             })}
           </Box>

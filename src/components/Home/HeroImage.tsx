@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import hero from "@assets/www.jpg";
 
 /**
  * 背景發光特效、具備玻璃擬態感的主圖容器。
  */
 const HeroImage = () => {
+  const reducedMotion = useReducedMotion();
   return (
     <Box
       sx={{
@@ -21,7 +22,7 @@ const HeroImage = () => {
       {/* 第一層背景 */}
       <Box
         component={motion.div}
-        animate={{
+        animate={reducedMotion ? { rotate: 0, scale: 1 } : {
           rotate: [0, 360],
           scale: [1, 1.05, 1],
         }}
@@ -43,7 +44,7 @@ const HeroImage = () => {
       {/* 第二層背景 */}
       <Box
         component={motion.div}
-        animate={{
+        animate={reducedMotion ? { rotate: 0, scale: 1 } : {
           rotate: [360, 0],
           scale: [1, 1.1, 1],
         }}
@@ -68,7 +69,7 @@ const HeroImage = () => {
       */}
       <Box
         component={motion.div}
-        animate={{
+        animate={reducedMotion ? { opacity: 0.4 } : {
           opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
@@ -92,7 +93,7 @@ const HeroImage = () => {
         component={motion.div}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.02 }}
+        whileHover={reducedMotion ? undefined : { scale: 1.02 }}
         transition={{ duration: 1, ease: "easeOut" }}
         sx={{
           position: "relative",

@@ -2,7 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { useProfiles } from "@hooks/useProfiles";
 
 const Avatar = () => {
-  const { data: profiles = [], isLoading } = useProfiles();
+  const { data: profiles = [], isLoading, isError } = useProfiles();
   const profile = profiles[0];
 
   return (
@@ -44,7 +44,7 @@ const Avatar = () => {
             p: 2,
           }}
         >
-          尚未上傳頭像
+          {isError ? "頭像資料載入失敗" : "尚未上傳頭像"}
         </Box>
       )}
     </Box>

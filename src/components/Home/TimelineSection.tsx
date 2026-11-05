@@ -1,9 +1,10 @@
+import QueryError from "@components/QueryError";
 import { Box, Typography, Container, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useExperiences } from "@hooks/useExperiences";
 
 const TimelineSection = () => {
-  const { data: milestones = [], isLoading, error } = useExperiences();
+  const { data: milestones = [], isLoading, isError, isFetching, refetch } = useExperiences();
   console.log("milestones", milestones);
 
   if (isLoading) {
@@ -28,11 +29,11 @@ const TimelineSection = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
-      <Box sx={{ py: 10, textAlign: "center", color: "#ff4d4d" }}>
-        <Typography>加載經歷時出錯: {(error as Error).message}</Typography>
-      </Box>
+      <Container maxWidth="lg">
+        <QueryError message="無法載入經歷，請稍後重試。" retrying={isFetching} onRetry={() => { void refetch(); }} />
+      </Container>
     );
   }
 
@@ -72,7 +73,7 @@ const TimelineSection = () => {
               component={motion.div}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }} // 元件進入使用者的視窗範圍時，會啟動動畫
-              viewport={{ once: true, amount: "all" }} // 控制動畫的觸發次數
+              viewport={{ once: true, amount: 0.2 }} // 部分進入視窗就顯示，避免長內容無法觸發
               transition={{
                 duration: 0.8,
                 delay: 0.2, // 延遲 0.2 秒再動，增加節奏感
