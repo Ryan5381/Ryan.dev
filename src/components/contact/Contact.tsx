@@ -1,4 +1,7 @@
-import QueryError from "@components/QueryError";
+﻿import QueryError from "@components/QueryError";
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { FiMail, FiGithub, FiLinkedin } from "react-icons/fi";
 import { SiMinutemailer } from "react-icons/si";
 import {
   Box,
@@ -11,10 +14,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { MdOpenInNew, MdSend } from "react-icons/md";
-import contactImg from "@assets/contact.png";
+import contactImg from "@assets/contact-v2.png";
+import originalContactImg from "@assets/contact.png";
 import { useProfiles } from "@hooks/useProfiles";
 
 const Contact = () => {
+  const reducedMotion = useReducedMotion();
+  const [imageState, setImageState] = useState<"loading" | "ready" | "failed">("loading");
   const { data: profiles = [], isLoading, isError, isFetching, refetch } = useProfiles();
   if (isLoading) {
     return (
@@ -52,18 +58,21 @@ const Contact = () => {
       href: `mailto:${profile.email}`,
       actionLabel: "傳送郵件",
       icon: <MdSend />,
+      labelIcon: <FiMail aria-hidden="true" />,
     },
     {
-      label: "Github",
+      label: "GitHub",
       value: profile.github_url,
+      labelIcon: <FiGithub aria-hidden="true" />,
       isLink: true,
       href: profile.github_url,
       actionLabel: "前往造訪",
       icon: <MdOpenInNew />,
     },
     {
-      label: "Linkedin",
+      label: "LinkedIn",
       value: profile.linkedin_url,
+      labelIcon: <FiLinkedin aria-hidden="true" />,
       isLink: true,
       href: profile.linkedin_url,
       actionLabel: "查看檔案",
@@ -113,8 +122,13 @@ const Contact = () => {
             maxWidth: "450px",
           }}
         >
-          {myInfo.map((item) => (
+          {myInfo.map((item, index) => (
             <Card
+              component={motion.div}
+              className="group/contact"
+              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.4, delay: reducedMotion ? 0 : index * 0.1 }}
               key={item.label}
               sx={{
                 bgcolor: "rgba(255,255,255,0.05)",
@@ -123,7 +137,7 @@ const Contact = () => {
                 borderRadius: "12px",
                 transition: "transform 0.2s",
                 "&:hover": {
-                  transform: "translateY(-2px)",
+                  transform: reducedMotion ? "none" : "translateY(-2px)",
                   bgcolor: "rgba(255,255,255,0.08)",
                 },
               }}
@@ -137,7 +151,10 @@ const Contact = () => {
                   px: { xs: 2.5, sm: 3, md: 4 },
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5 }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                  <span className="flex text-2xl text-[#D4B483] motion-safe:[@media(hover:hover)]:group-hover/contact:animate-contact-icon-pop motion-safe:[@media(hover:hover)]:group-focus-within/contact:animate-contact-icon-pop">
+                    {item.labelIcon}
+                  </span>
                   <Typography
                     variant="h6"
                     sx={{
@@ -182,6 +199,7 @@ const Contact = () => {
           sx={{
             flexShrink: 0,
             width: { xs: "100%", md: "400px" },
+            aspectRatio: "1",
             textAlign: "center",
             position: "relative",
           }}
@@ -200,16 +218,45 @@ const Contact = () => {
               zIndex: 0,
             }}
           />
+          {imageState === "loading" && (
+            <div
+              className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl bg-[linear-gradient(110deg,transparent_25%,#d4b4830c_45%,transparent_65%)] [background-size:220%_100%] text-[#D4B483] motion-safe:animate-contact-image-shimmer"
+              role="status"
+              aria-label="插圖載入中"
+            >
+              <motion.div
+                animate={reducedMotion ? undefined : { y: [0, -8, 0], rotate: [-5, 5, -5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <FiMail className="block size-[38px]" aria-hidden="true" />
+              </motion.div>
+              <span className="text-xs tracking-[0.1em]">載入中</span>
+            </div>
+          )}
+          {imageState === "failed" && <Box role="status" sx={{ py: 8, color: "#D4B483" }}>插圖暫時無法載入</Box>}
+          <motion.div
+            initial={false}
+            animate={{ opacity: imageState === "ready" ? 1 : 0, scale: imageState === "ready" || reducedMotion ? 1 : 0.94 }}
+            transition={{ duration: reducedMotion ? 0 : 0.65, ease: "easeOut" }}
+          >
           <img
+            className="h-auto w-full rounded-2xl object-cover md:motion-safe:animate-contact-image-float"
+            width={1280}
+            height={1280}
+            decoding="async"
             src={contactImg}
             alt="Contact"
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
-              borderRadius: "16px",
+            onLoad={() => setImageState("ready")}
+            onError={(event) => {
+              if (event.currentTarget.getAttribute("src") !== originalContactImg) {
+                event.currentTarget.src = originalContactImg;
+              } else {
+                setImageState("failed");
+              }
             }}
+            aria-hidden={imageState !== "ready"}
           />
+          </motion.div>
         </Box>
       </Box>
     </Container>

@@ -1,12 +1,14 @@
 import { Box } from "@mui/material";
 import { motion, useReducedMotion } from "framer-motion";
 import hero from "@assets/www.jpg";
+import { usePointerGlow } from "@hooks/usePointerGlow";
 
 /**
  * 背景發光特效、具備玻璃擬態感的主圖容器。
  */
 const HeroImage = () => {
   const reducedMotion = useReducedMotion();
+  const pointer = usePointerGlow(8);
   return (
     <Box
       sx={{
@@ -17,8 +19,15 @@ const HeroImage = () => {
         position: "relative",
         height: { xs: "350px", md: "500px" },
         width: "100%",
+        isolation: "isolate",
       }}
     >
+      <div aria-hidden="true" className="pointer-events-none absolute z-1 aspect-square w-[min(90%,470px)] rounded-full border border-[rgba(255,217,154,0.22)] motion-safe:animate-orbit-spin">
+        <span className="absolute top-1/2 -left-1 size-[7px] rounded-full bg-[#ffe0a6] shadow-[0_0_12px_#ffd48a,0_0_28px_rgba(255,212,138,0.6)]" />
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute z-1 hidden aspect-square w-[min(82%,430px)] rounded-full border border-dashed border-[rgba(210,232,225,0.15)] md:block motion-safe:animate-orbit-reverse">
+        <span className="absolute top-1/2 -left-1 size-[7px] rounded-full bg-[#ffe0a6] shadow-[0_0_12px_#ffd48a,0_0_28px_rgba(255,212,138,0.6)]" />
+      </div>
       {/* 第一層背景 */}
       <Box
         component={motion.div}
@@ -35,7 +44,7 @@ const HeroImage = () => {
           position: "absolute",
           width: { xs: "300px", md: "460px" },
           height: { xs: "300px", md: "460px" },
-          background: "rgba(85, 83, 74, 0.3)",
+          background: "linear-gradient(135deg, rgba(255,193,94,0.3), rgba(85,83,74,0.1))",
           borderRadius: "40% 60% 55% 45% / 45% 45% 55% 55%",
           zIndex: 0,
         }}
@@ -91,6 +100,10 @@ const HeroImage = () => {
       {/* Image Container */}
       <Box
         component={motion.div}
+        style={pointer.style}
+        onPointerMove={pointer.onPointerMove}
+        onPointerLeave={pointer.onPointerLeave}
+        onPointerCancel={pointer.onPointerCancel}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={reducedMotion ? undefined : { scale: 1.02 }}
@@ -119,6 +132,7 @@ const HeroImage = () => {
             userSelect: "none", // 禁止選取
           }}
         />
+        <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen" style={pointer.glow} />
       </Box>
     </Box>
   );
