@@ -9,7 +9,7 @@ const TitleSection = () => {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="flex flex-col items-center md:flex-row md:gap-8"
       >
-        <h1 className="text-5xl md:text-7xl font-mono font-bold tracking-tighter text-white">
+        <h1 className="bg-[linear-gradient(110deg,#fff_15%,#ffe0a6_35%,#fff_50%,#c6e6df_65%,#fff_85%)] [background-size:240%_100%] bg-clip-text text-5xl font-mono font-bold tracking-tighter text-transparent drop-shadow-[0_0_24px_rgba(255,204,128,0.2)] motion-safe:animate-prism-flow md:text-7xl">
           Ryan<span className="text-amber-400">.</span>dev
         </h1>
 

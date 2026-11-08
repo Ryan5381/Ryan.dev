@@ -1,4 +1,43 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
+
+@theme {
+  --animate-prism-flow: prism-flow 8s ease-in-out infinite;
+  --animate-orbit-spin: orbit-spin 24s linear infinite;
+  --animate-orbit-reverse: orbit-spin 32s linear infinite reverse;
+  --animate-entry-sweep: entry-sweep 0.8s ease-out;
+  --animate-contact-icon-pop: contact-icon-pop 0.4s ease;
+  --animate-contact-image-float: contact-image-float 7s ease-in-out infinite;
+  --animate-contact-image-shimmer: contact-image-shimmer 2.4s ease-in-out infinite;
+
+  @keyframes prism-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes orbit-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes entry-sweep {
+    to { transform: translateX(100%); }
+  }
+
+  @keyframes contact-icon-pop {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    40% { transform: translateY(-3px) rotate(-8deg); }
+    70% { transform: translateY(1px) rotate(3deg); }
+  }
+
+  @keyframes contact-image-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes contact-image-shimmer {
+    from { background-position: 120% 0; }
+    to { background-position: -120% 0; }
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

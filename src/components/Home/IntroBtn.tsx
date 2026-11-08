@@ -8,12 +8,13 @@ const IntroBtn = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        delay: 2.2, // 在標題完成後出現
-        duration: 1,
+        delay: 0.4,
+        duration: 0.6,
         ease: "easeOut",
       }}
     >
         <Button
+          className="relative overflow-hidden after:pointer-events-none after:absolute after:inset-[-50%] after:bg-[linear-gradient(110deg,transparent_35%,rgba(255,209,134,0.65)_50%,transparent_65%)] after:[transform:translateX(-100%)] after:content-[''] motion-safe:hover:after:animate-entry-sweep motion-safe:[@media(hover:hover)]:focus-visible:after:animate-entry-sweep"
           component={Link}
           to="/homepage"
           variant="contained"

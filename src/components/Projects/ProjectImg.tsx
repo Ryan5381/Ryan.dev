@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { motion, useReducedMotion } from "framer-motion";
 import placeholderImg from "@assets/placeholder.png";
+import { usePointerGlow } from "@hooks/usePointerGlow";
 
 interface ProjectImgProps {
   src?: string | null;
@@ -9,14 +10,18 @@ interface ProjectImgProps {
 
 const ProjectImg = ({ src, alt = "Project Image" }: ProjectImgProps) => {
   const reducedMotion = useReducedMotion();
+  const pointer = usePointerGlow(5);
   return (
     <Box
       component={motion.div}
+      style={pointer.style}
+      onPointerMove={pointer.onPointerMove}
+      onPointerLeave={pointer.onPointerLeave}
+      onPointerCancel={pointer.onPointerCancel}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={reducedMotion ? undefined : {
-        scale: 1.05,
-        rotateY: 5,
+        scale: 1.02,
         boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
       }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -58,6 +63,7 @@ const ProjectImg = ({ src, alt = "Project Image" }: ProjectImgProps) => {
           },
         }}
       />
+      <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen" style={pointer.glow} />
     </Box>
   );
 };

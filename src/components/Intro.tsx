@@ -31,7 +31,7 @@ const Intro = () => {
   const auroraBands = [
     {
       id: "amber-bright",
-      color: "bg-amber-400/40",
+      color: "bg-amber-400/50",
       top: "-20%",
       left: "-10%",
       size: "w-[130vw] h-[70vh]",
@@ -59,7 +59,7 @@ const Intro = () => {
     },
     {
       id: "stone-bright",
-      color: "bg-white/20", // 象牙白
+      color: "bg-teal-200/20", // 冷色高光讓暖色極光更有層次
       bottom: "5%",
       left: "-5%",
       size: "w-[110vw] h-[65vh]",
@@ -73,7 +73,7 @@ const Intro = () => {
     },
     {
       id: "warm-accent",
-      color: "bg-orange-600/30", // 增加橘色
+      color: "bg-orange-500/40", // 增加橘色
       bottom: "-20%",
       right: "5%",
       size: "w-[120vw] h-[60vh]",
